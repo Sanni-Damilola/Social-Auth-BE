@@ -7,6 +7,6 @@ passport.use(
     // options for google strategy
   }),
   () => {
-    
+    // pasport callback function
   }
 );
