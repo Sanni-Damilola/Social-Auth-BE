@@ -8,6 +8,7 @@ console.log("s", keys.google.clientSecret);
 passport.use(
   new GoogleStrategy({
     // options for google strategy
+    callbaclURL: "https://developers.google.com/oauthplayground",
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret,
   }),

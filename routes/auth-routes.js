@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const passport = require("passport-google-oauth20");
 
 // auth login
 router.get("/login", (req, res) => {
@@ -12,9 +13,6 @@ router.get("/logout", (req, res) => {
 });
 
 // auth with google
-router.get("/google", (req, res) => {
-  // handle with passport
-  res.send("logging in with google");
-});
+router.get("/google",);
 
 module.exports = router;
