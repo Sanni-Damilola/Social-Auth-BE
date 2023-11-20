@@ -6,7 +6,7 @@ passport.use(
   new GoogleStrategy(
     {
       // Options for Google strategy
-      callbackURL: "https://developers.google.com/oauthplayground",
+      callbackURL: "http://localhost:3000",
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret,
     },
