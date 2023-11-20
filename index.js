@@ -1,5 +1,6 @@
 const express = require("express");
 
+const authRoutes = require("./routes/routes");
 const app = express();
 
 // set up view engine
