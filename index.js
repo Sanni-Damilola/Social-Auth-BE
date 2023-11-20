@@ -5,7 +5,7 @@ const passport = require("passport");
 const pasportsetup = require("./config/passport-setup");
 const generateRandomSecret = require("./utils/generate-secret");
 const app = express();
-
+require("./config/db");
 // set up view engine
 app.set("view engine", "ejs");
 const generatedSecret = generateRandomSecret();
