@@ -13,27 +13,27 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       // Passport callback function
-      console.log("profile", profile?.provider);
 
       // Check if the user already exists in the database
       const existingUser = await User.findOne({ googleId: profile.id });
 
-      // if (existingUser) {
-      //   // User already exists, no need to create a new one
-      //   return done(null, existingUser);
-      // }
+      if (existingUser) {
+        // User already exists, no need to create a new one
+        return done(null, existingUser);
+      }
 
-      // // User does not exist, create a new user
-      // const newUser = new User({
-      //   userId: profile.id,
-      //   username: profile.displayName,
-      // });
+      // User does not exist, create a new user
+      const newUser = new User({
+        userId: profile.id,
+        username: profile.displayName,
+        email: profile.emails[0].value,
+      });
 
-      // // Save the new user to the database
-      // const savedUser = await newUser.save();
+      // Save the new user to the database
+      const savedUser = await newUser.save();
 
       // Pass the user to the done callback
-      done(null, profile);
+      done(null, savedUser);
     }
   )
 );
