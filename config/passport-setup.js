@@ -1,7 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20");
 const keys = require("./keys");
-const user = require("../model/user-model");
+const User = require("../model/user-model"); // Assuming you have a User model defined
 
 passport.use(
   new GoogleStrategy(
@@ -11,13 +11,28 @@ passport.use(
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret,
     },
-    (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       // Passport callback function
-      console.log("Google Profile:", profile);
-      new user({
-        username: profile?.displayName,
-        userId: profile?.id,
-      }).save().then(());
+
+      // Check if the user already exists in your database
+      const existingUser = await User.findOne({ googleId: profile.id });
+
+      if (existingUser) {
+        // User already exists, no need to create a new one
+        return done(null, existingUser);
+      }
+
+      // User does not exist, create a new user
+      const newUser = new User({
+        userId: profile.id,
+        username: profile.displayName,
+      });
+
+      // Save the new user to the database
+      const savedUser = await newUser.save();
+
+      // Pass the user to the done callback
+      done(null, savedUser);
     }
   )
 );
@@ -26,7 +41,8 @@ passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((user, done) => {
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
   done(null, user);
 });
 
