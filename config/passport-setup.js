@@ -15,7 +15,7 @@ passport.use(
       // Passport callback function
 
       // Check if the user already exists in your database
-      const existingUser = await User.findOne({ googleId: profile.id });
+      const existingUser = await User.findOne({ userId: profile.id });
 
       if (existingUser) {
         // User already exists, no need to create a new one

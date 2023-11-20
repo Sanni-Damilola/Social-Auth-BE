@@ -13,20 +13,10 @@ const generatedSecret = generateRandomSecret();
 
 // create a connection to mongodb
 const dbUri = "mongodb://0.0.0.0:27017/socialauth";
-const dbOptions = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
-const db = mongoose.createConnection(dbUri, dbOptions);
-
-db.on("error", (err) => {
-  console.error("Error in MongoDB connection:", err);
-});
-
-db.once("open", () => {
-  console.log("Connected to MongoDB");
-});
+mongoose
+  .connect(dbUri)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Error in MongoDB connection:", err));
 
 app.use(
   session({
