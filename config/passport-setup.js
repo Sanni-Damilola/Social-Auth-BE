@@ -13,6 +13,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       // Passport callback function
+      console.log("profile", profile);
 
       // Check if the user already exists in the database
       const existingUser = await User.findOne({ googleId: profile.id });
@@ -30,7 +31,6 @@ passport.use(
 
       // Save the new user to the database
       const savedUser = await newUser.save();
-      console.log("New User:", savedUser);
 
       // Pass the user to the done callback
       done(null, savedUser);
