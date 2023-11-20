@@ -1,50 +1,43 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20");
 const keys = require("./keys");
-const User = require("../model/user-model"); // Assuming you have a User model defined
 
-passport.use(
-  new GoogleStrategy(
-    {
-      // Options for Google strategy
-      callbackURL: "/auth/google/redirect",
-      clientID: keys.google.clientID,
-      clientSecret: keys.google.clientSecret,
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      // Passport callback function
-
-      // Check if the user already exists in your database
-      const existingUser = await User.findOne({ userId: profile.id });
-
-      if (existingUser) {
-        // User already exists, no need to create a new one
-        return done(null, existingUser);
+function configurePassport(strategy, options) {
+  passport.use(
+    new strategy(
+      {
+        ...options,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        try {
+          done(null, profile);
+        } catch (error) {
+          console.error("Error in Passport callback:", error);
+          done(error, null);
+        }
       }
+    )
+  );
 
-      // User does not exist, create a new user
-      const newUser = new User({
-        userId: profile.id,
-        username: profile.displayName,
-      });
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
 
-      // Save the new user to the database
-      const savedUser = await newUser.save();
-      console.log("New User:", savedUser);
-
-      // Pass the user to the done callback
-      done(null, savedUser);
+  passport.deserializeUser(async (id, done) => {
+    try {
+      // If you are not storing users in the session, you can simply pass the id to the done callback
+      done(null, { id });
+    } catch (error) {
+      console.error("Error in Passport deserialization:", error);
+      done(error, null);
     }
-  )
-);
+  });
 
-passport.serializeUser((user, done) => {
-  done(null, user);
+  return passport;
+}
+
+module.exports = configurePassport(GoogleStrategy, {
+  callbackURL: "/auth/google/redirect",
+  clientID: keys.google.clientID,
+  clientSecret: keys.google.clientSecret,
 });
-
-passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
-  done(null, user);
-});
-
-module.exports = passport;
