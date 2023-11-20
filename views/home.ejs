@@ -4,8 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Social Auth</title>
+    <style>
+      header {
+        display: flex;
+        align-items: center;
+        margin: auto 10px;
+      }
+      button {
+        margin-right: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    </style>
   </head>
   <body>
+    <header>
+      <button><a href="/auth/logout">Logout</a></button>
+      <button><a href="/auth/login">Login</a></button>
+      <button><a href="/">HomePage</a></button>
+    </header>
     <h1>Home Page</h1>
   </body>
 </html>
