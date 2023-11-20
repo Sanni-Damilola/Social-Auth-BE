@@ -11,8 +11,22 @@ const app = express();
 app.set("view engine", "ejs");
 const generatedSecret = generateRandomSecret();
 
-// connect to mongodb
-mongoose.connect("mongodb://0.0.0.0:27017/socialauth").then(())
+// create a connection to mongodb
+const dbUri = "mongodb://0.0.0.0:27017/socialauth";
+const dbOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+const db = mongoose.createConnection(dbUri, dbOptions);
+
+db.on("error", (err) => {
+  console.error("Error in MongoDB connection:", err);
+});
+
+db.once("open", () => {
+  console.log("Connected to MongoDB");
+});
 
 app.use(
   session({
@@ -33,5 +47,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("App is Listening to ", 3000);
+  console.log("App is listening on port 3000");
 });
