@@ -13,7 +13,7 @@ passport.use(
     (accessToken, refreshToken, profile, done) => {
       // Passport callback function
       console.log("Google Profile:", profile);
-      return done(null, profile?.email);
+      return done(null, profile);
     }
   )
 );
