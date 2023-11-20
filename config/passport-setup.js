@@ -30,6 +30,7 @@ passport.use(
 
       // Save the new user to the database
       const savedUser = await newUser.save();
+      console.log("New User:", savedUser);
 
       // Pass the user to the done callback
       done(null, savedUser);
