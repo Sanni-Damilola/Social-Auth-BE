@@ -15,6 +15,9 @@ const generatedSecret = generateRandomSecret();
 
 app.use(cookieSession({ maxAge: 24 * 60 * 60 * 1000, keys: [keysForCookies] }));
 
+app.use(passport.initialize())
+app.use(passport.session())
+
 // create a connection to mongodb
 const dbUri = "mongodb://0.0.0.0:27017/socialauth";
 mongoose
