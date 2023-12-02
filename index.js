@@ -7,15 +7,13 @@ const pasportsetup = require("./config/passport-setup");
 const generateRandomSecret = require("./utils/generate-secret");
 const app = express();
 const cookieSession = require("cookie-session");
+const { keysForCookies } = require("./config/keys");
 
 // set up view engine
 app.set("view engine", "ejs");
 const generatedSecret = generateRandomSecret();
 
-app.use({
-  maxAge: 24 * 60 * 60 * 1000,
-  keys: [],
-});
+app.use(cookieSession({ maxAge: 24 * 60 * 60 * 1000, keys: [keysForCookies] }));
 
 // create a connection to mongodb
 const dbUri = "mongodb://0.0.0.0:27017/socialauth";
