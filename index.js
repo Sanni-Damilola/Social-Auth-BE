@@ -15,6 +15,13 @@ app.set("view engine", "ejs");
 // Generate a random secret for session management
 const generatedSecret = generateRandomSecret();
 
+// Connect to MongoDB
+const dbUri = "mongodb://0.0.0.0:27017/socialauth";
+mongoose
+  .connect(dbUri)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Error in MongoDB connection:", err));
+
 // Use cookie-session middleware for handling cookies
 // maxAge is set to 24 hours in milliseconds
 app.use(cookieSession({ maxAge: 24 * 60 * 60 * 1000, keys: [keysForCookies] }));
@@ -22,13 +29,6 @@ app.use(cookieSession({ maxAge: 24 * 60 * 60 * 1000, keys: [keysForCookies] }));
 // Initialize Passport and use it for session management
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Connect to MongoDB
-const dbUri = "mongodb://0.0.0.0:27017/socialauth";
-mongoose
-  .connect(dbUri)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Error in MongoDB connection:", err));
 
 // Use express-session for more advanced session management
 app.use(
