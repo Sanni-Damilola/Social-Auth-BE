@@ -25,7 +25,7 @@ passport.use(
 
       if (existingUser) {
         // User already exists, no need to create a new one
-        return done(null, existingUser);
+        return done(Error | null, existingUser);
       }
 
       // User does not exist, create a new user
