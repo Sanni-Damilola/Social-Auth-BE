@@ -3,6 +3,12 @@ const GoogleStrategy = require("passport-google-oauth20");
 const keys = require("./keys");
 const User = require("../model/user-model"); // Assuming you have a User model defined
 
+// store the user id
+passport.serializeUser((user, done) => {
+  console.log("User".user);
+  done(Error | null, user?.id);
+});
+
 passport.use(
   new GoogleStrategy(
     {
