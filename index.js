@@ -6,10 +6,8 @@ const cookieSession = require("cookie-session");
 const { keysForCookies, dbUrl } = require("./config/keys");
 const app = express();
 
-// Set up view engine (using EJS in this case)
 app.set("view engine", "ejs");
 
-// Use cookie-session middleware for handling cookies
 // maxAge is set to 24 hours in milliseconds
 app.use(cookieSession({ maxAge: 24 * 60 * 60 * 1000, keys: [keysForCookies] }));
 
