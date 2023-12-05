@@ -1,5 +1,6 @@
 const express = require("express");
 const authRoutes = require("./routes/auth-routes");
+const profileRoutes = require("./routes/profile-route");
 const passport = require("./config/passport-setup");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
@@ -23,6 +24,7 @@ mongoose
 
 // Set up routes for authentication
 app.use("/auth", authRoutes);
+app.use("/profile", profileRoutes);
 
 // Define a simple route for the home page
 app.get("/", (req, res) => {
