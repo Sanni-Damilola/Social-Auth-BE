@@ -23,9 +23,15 @@
   </head>
   <body>
     <header>
-      <button><a href="/auth/logout">Logout</a></button>
-      <button><a href="/auth/login">Login</a></button>
-      <button><a href="/">HomePage</a></button>
+      <ul>
+        <% if(user){ %>
+        <li><a href="/auth/logout">Logout</a></li>
+        <% }else {%>
+        <li><a href="/auth/login">Login</a></li>
+        <% %>
+        <li><a href="/">HomePage</a></li>
+        <li><a href="/profile">Profile</a></li>
+      </ul>
     </header>
     <h1>Home Page</h1>
   </body>

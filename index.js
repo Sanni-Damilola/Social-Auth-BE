@@ -28,7 +28,7 @@ app.use("/profile", profileRoutes);
 
 // Define a simple route for the home page
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", { user: req.user });
 });
 
 // Start the server on port 3000
