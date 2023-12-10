@@ -24,9 +24,9 @@
   <body>
     <header>
       <% if (user) { %>
-      <li><a href="/auth/logout">Logout</a></li>
+      <button><a href="/auth/logout">Logout</a></button>
       <% } else { %>
-      <li><a href="/auth/login">Login</a></li>
+      <button><a href="/auth/login">Login</a></button>
       <% } %>
       <button><a href="/">HomePage</a></button>
     </header>
