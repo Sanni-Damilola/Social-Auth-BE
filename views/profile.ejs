@@ -23,7 +23,11 @@
   </head>
   <body>
     <header>
-      <button><a href="/auth/logout">Logout</a></button>
+      <% if (user) { %>
+      <li><a href="/auth/logout">Logout</a></li>
+      <% } else { %>
+      <li><a href="/auth/login">Login</a></li>
+      <% } %>
       <button><a href="/">HomePage</a></button>
     </header>
     <h1>Welcome to Your Profile Page, <%=user.username %></h1>
