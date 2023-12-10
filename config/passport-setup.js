@@ -13,7 +13,6 @@ passport.deserializeUser(async (id, done) => {
   done(null, user);
 });
 
-
 // Set up a new instance of the Google authentication strategy for Passport
 passport.use(
   new GoogleStrategy(
@@ -38,7 +37,7 @@ passport.use(
       const newUser = new User({
         googleId: profile.id,
         username: profile.displayName,
-        email: profile.emails[0].value,
+        email: profile?.emails ? profile?.emails[0]?.value : "",
       });
 
       // Save the new user to the database
