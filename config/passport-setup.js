@@ -8,11 +8,11 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-// Deserialize the user from the session
 passport.deserializeUser(async (id, done) => {
   const user = await User.findById(id);
   done(null, user);
 });
+
 
 // Set up a new instance of the Google authentication strategy for Passport
 passport.use(
