@@ -1,11 +1,10 @@
 const express = require("express");
 const authRoutes = require("./routes/auth-routes");
-const passport = require("passport");
+const passport = require("./config/passport-setup");
 const mongoose = require("mongoose");
-const pasportsetup = require("./config/passport-setup");
-const app = express();
 const cookieSession = require("cookie-session");
 const { keysForCookies, dbUrl } = require("./config/keys");
+const app = express();
 
 // Set up view engine (using EJS in this case)
 app.set("view engine", "ejs");
